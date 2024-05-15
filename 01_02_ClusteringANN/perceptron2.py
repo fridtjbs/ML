@@ -4,6 +4,9 @@ import pandas as pd
 # Load dataset
 data = pd.read_csv('irisBinary.csv')
 
+
+
+
 # Map class labels to binary values
 data['Iris Class'] = data['Iris Class'].map({'Iris-setosa': 0, 'Iris-versicolor': 1})
 
@@ -20,7 +23,7 @@ y = data['Iris Class'].values.reshape(-1, 1)
 
 
 # Standardize the features
-X = (X - X.mean(axis=0)) / X.std(axis=0)
+#X = (X - X.mean(axis=0)) / X.std(axis=0)
 
 #print(X)
 
@@ -37,7 +40,7 @@ input_neurons = 4 #number of attributes
 
 output_neurons = 1 #representing the class
 learning_rate = 0.01
-epochs = 200
+epochs = 1000
 
 #random init of weights to use delta learning rule 
 weight = np.random.uniform(size=(input_neurons, output_neurons))
@@ -54,7 +57,7 @@ def forward_propagation(X):
     output = sigmoid(output_layer_input)
     return  output
 
-# Backpropagation
+
 
 # Train the network
 def train(X, y, epochs, learning_rate):
@@ -84,10 +87,9 @@ train(X, y, epochs, learning_rate)
 predictions = predict(X)
 
 #print(predictions)
-
 predictions = [1 if p >= 0.5 else 0 for p in predictions]
 
-#print(predictions)
+print(predictions)
 
 # Evaluate accuracy
 accuracy = np.mean(predictions == y.flatten()) * 100
