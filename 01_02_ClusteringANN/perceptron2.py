@@ -1,8 +1,27 @@
 import numpy as np
 import pandas as pd
 
+
+
 # Load dataset
 data = pd.read_csv('irisBinary.csv')
+
+
+data['Iris Class'] = data['Iris Class'].map({'Iris-setosa': 0, 'Iris-versicolor': 1})
+
+# Split dataset into features and labels
+X = data[['Sepal Length', 'Sepal Width', 'Petal Length', 'Petal Width']].values
+y = data['Iris Class'].values.reshape(-1, 1)
+
+
+#imported library randomly split testset, not related to the perceptron itself, source: https://www.analyticsvidhya.com/blog/2023/11/train-test-validation-split/
+from sklearn.model_selection import train_test_split
+Xtrain, Xtemp, ytrain, ytemp = train_test_split(X, y, test_size=0.4, random_state=42)
+Xval, Xtest, yval, ytest = train_test_split(Xtemp, ytemp, test_size=0.5, random_state=42)
+#import csv
+
+print(Xtest)
+print(ytest)
 
 
 
@@ -10,9 +29,12 @@ data = pd.read_csv('irisBinary.csv')
 # Map class labels to binary values
 data['Iris Class'] = data['Iris Class'].map({'Iris-setosa': 0, 'Iris-versicolor': 1})
 
-# Split dataset into features and labels
-X = data[['Sepal Length', 'Sepal Width', 'Petal Length', 'Petal Width']].values
-y = data['Iris Class'].values.reshape(-1, 1)
+
+
+
+
+
+
 
 #   example iris attribute input
 #   [5.1 3.5 1.4 0.2]
@@ -81,10 +103,10 @@ def predict(X):
     return output
 
 # Train the network
-train(X, y, epochs, learning_rate)
+train(Xtrain, ytrain, epochs, learning_rate)
 
 # Predictions
-predictions = predict(X)
+predictions = predict(Xtest)
 
 #print(predictions)
 predictions = [1 if p >= 0.5 else 0 for p in predictions]
@@ -92,6 +114,6 @@ predictions = [1 if p >= 0.5 else 0 for p in predictions]
 print(predictions)
 
 # Evaluate accuracy
-accuracy = np.mean(predictions == y.flatten()) * 100
+accuracy = np.mean(predictions == ytest.flatten()) * 100
 print(f'Accuracy: {accuracy}%')
 

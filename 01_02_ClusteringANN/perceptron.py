@@ -106,3 +106,17 @@ predictions = [1 if p >= 0.5 else 0 for p in predictions]
 # Evaluate accuracy
 accuracy = np.mean(predictions == y.flatten()) * 100
 print(f'Accuracy: {accuracy}%')
+
+
+dataTrain = pd.read_csv('trainingset1.csv')
+dataTest = pd.read_csv('testset1.csv')
+dataVal = pd.read_csv('validationset1.csv')
+dataTrain['Iris Class'] = dataTrain['Iris Class'].map({'Iris-setosa': 0, 'Iris-versicolor': 1})
+dataTest['Iris Class'] = dataTest['Iris Class'].map({'Iris-setosa': 0, 'Iris-versicolor': 1})
+dataVal['Iris Class'] = dataVal['Iris Class'].map({'Iris-setosa': 0, 'Iris-versicolor': 1})
+Xtrain = dataTrain[['Sepal Length', 'Sepal Width', 'Petal Length', 'Petal Width']].values
+ytrain = dataTrain['Iris Class'].values.reshape(-1, 1)
+Xtest = dataTest[['Sepal Length', 'Sepal Width', 'Petal Length', 'Petal Width']].values
+ytest = dataTest['Iris Class'].values.reshape(-1, 1)
+Xval = dataVal[['Sepal Length', 'Sepal Width', 'Petal Length', 'Petal Width']].values
+yval = dataVal['Iris Class'].values.reshape(-1, 1)
