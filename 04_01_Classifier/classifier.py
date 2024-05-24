@@ -54,11 +54,11 @@ print(f'Accuracy on test set with optimal depth: {accuracy:.4f}')
 print('Classification Report:')
 print(classification_report(ytest, testpred, zero_division=1))
 
-#Searching for 
+#Searching for best feature count
 def featuresearch(Xtrain, ytrain, Xval, yval):
     best_featurecount = None
     best_accuracy = 0
-    for featurecount in range(1, 50):  # Trying depths from 1 to 20
+    for featurecount in range(1, 50):  # Trying features from 1 to 20
         tree = DecisionTreeClassifier(max_depth=best_max_depth, random_state=42, max_features=featurecount)
         tree.fit(Xtrain, ytrain)
         valpred = tree.predict(Xval)
@@ -78,15 +78,15 @@ print(f'Accuracy on test set with optimal featurecount: {accuracy:.4f}')
 print('Classification Report:')
 print(classification_report(ytest, testpred, zero_division=1))
 
-def leafsearch(Xtrain, ytrain, Xval, yval):
-    best_featurecount = None
-    best_accuracy = 0
-    for featurecount in range(1, 20):  # Trying depths from 1 to 20
-        tree = DecisionTreeClassifier(max_depth=best_max_depth, random_state=42, max_features=featurecount)
-        tree.fit(Xtrain, ytrain)
-        valpred = tree.predict(Xval)
-        accuracy = accuracy_score(yval, valpred)
-        if accuracy > best_accuracy:
-            best_accuracy = accuracy
-            best_featurecount = featurecount
-    return best_featurecount
+#def leafsearch(Xtrain, ytrain, Xval, yval):
+#    best_featurecount = None
+#    best_accuracy = 0
+#    for featurecount in range(1, 20):  # 
+#        tree = DecisionTreeClassifier(max_depth=best_max_depth, random_state=42, max_features=featurecount)
+#        tree.fit(Xtrain, ytrain)
+#        valpred = tree.predict(Xval)
+#        accuracy = accuracy_score(yval, valpred)
+#        if accuracy > best_accuracy:
+#            best_accuracy = accuracy
+#            best_featurecount = featurecount
+#    return best_featurecount
