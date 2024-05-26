@@ -68,6 +68,12 @@ epochs = 1000
 weight = np.random.uniform(size=(input_neurons, output_neurons))
 bias = np.random.uniform(size=(1, output_neurons))
 
+print("weights")
+print(weight)
+print("bias")
+print(bias)
+print("end")
+
 #print(wh)
 #print(bh)
 #print(wout)

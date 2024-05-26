@@ -18,7 +18,7 @@ cluster_centers =[]
 
 for i in range(2,16):
 
-    Kmean = KMeans(n_clusters=i,init='k-means++', n_init=10, max_iter=300) #setting init 10 removes elbow
+    Kmean = KMeans(n_clusters=i,init='k-means++', n_init=10, max_iter=300) #setting n_init 10 removes elbow
     print(i)
 
     
